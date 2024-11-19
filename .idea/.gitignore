@@ -1,0 +1,52 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+*.out
+*.err
+
+# IDEs
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
+
+# Build Tools
+/target/
+/build/
+/.gradle/
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Environment Files
+.env
+
+# Temporary or runtime files
+*.tmp
+# Compiled class files
+*.class
+
+# Production output
+/out/production/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Temporary files
+workspace.xml
+misc.xml
+
+# macOS-specific files
+.DS_Store
