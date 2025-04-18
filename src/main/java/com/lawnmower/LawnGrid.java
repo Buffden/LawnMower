@@ -1,5 +1,12 @@
-import javax.swing.*;
-import java.awt.*;
+package com.lawnmower;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+
+import javax.swing.JPanel;
+
 
 public class LawnGrid extends JPanel {
     private int rows;

@@ -1,41 +1,38 @@
-name: SonarCloud Analysis
+name: Build and Analyze with SonarCloud (Maven)
 
 on:
   push:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
-    name: SonarCloud Java Scan
+  build:
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
 
-      - name: Compile Java
-        run: |
-          mkdir -p bin
-          find src -name "*.java" > sources.txt
-          javac -d bin @sources.txt
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2
+          restore-keys: ${{ runner.os }}-m2
 
-      - name: Download SonarScanner
-        run: |
-          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-          unzip sonar-scanner.zip -d $HOME
-          echo "$HOME/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
-
-      - name: Run SonarCloud analysis
+      - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: sonar-scanner
+        run: mvn clean verify sonar:sonar \
+             -Dsonar.projectKey=Buffden_LawnMower \
+             -Dsonar.organization=buffden \
+             -Dsonar.host.url=https://sonarcloud.io \
+             -Dsonar.login=${{ secrets.SONAR_TOKEN }}

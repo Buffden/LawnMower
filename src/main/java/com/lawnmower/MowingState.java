@@ -1,3 +1,5 @@
+package com.lawnmower;
+
 public class MowingState implements MowerState {
     private LawnMower mower;
 

@@ -1,3 +1,5 @@
+package com.lawnmower;
+
 public interface Mediator {
     void startMowing();
     void stopMowing();

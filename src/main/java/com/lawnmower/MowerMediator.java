@@ -1,3 +1,5 @@
+package com.lawnmower;
+
 import java.awt.Color;
 
 public class MowerMediator implements Mediator {
