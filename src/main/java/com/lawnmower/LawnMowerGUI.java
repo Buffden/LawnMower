@@ -1,3 +1,5 @@
+package com.lawnmower;
+
 import javax.swing.*;
 import java.awt.*;
 
