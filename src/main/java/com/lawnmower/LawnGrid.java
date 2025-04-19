@@ -15,19 +15,27 @@ public class LawnGrid extends JPanel {
 
     // Constructor
     public LawnGrid(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
-        gridColors = new Color[rows][cols];
+        // Validate input dimensions
+        if (rows <= 0 || cols <= 0) {
+            // Set minimum valid dimensions if invalid values are provided
+            this.rows = Math.max(1, rows);
+            this.cols = Math.max(1, cols);
+        } else {
+            this.rows = rows;
+            this.cols = cols;
+        }
+        
+        gridColors = new Color[this.rows][this.cols];
 
         // Initialize the grid with dark green (uncut grass)
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
                 gridColors[i][j] = Color.RED;
             }
         }
 
         // Set the layout to grid
-        setLayout(new GridLayout(rows, cols));
+        setLayout(new GridLayout(this.rows, this.cols));
         setPreferredSize(new Dimension(500, 500)); // Example size
     }
 
