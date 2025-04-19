@@ -36,4 +36,17 @@ public class LawnMowerGUI extends JFrame {
     public LawnGrid getLawnGrid() {
         return lawnGrid;
     }
+
+    public static void main(String[] args) {
+        // Check if running in headless mode
+        if (Boolean.getBoolean("java.awt.headless")) {
+            System.out.println("Cannot run GUI in headless mode");
+            return;
+        }
+
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            LawnMowerGUI gui = new LawnMowerGUI();
+            gui.setVisible(true);
+        });
+    }
 }
