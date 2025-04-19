@@ -124,6 +124,7 @@
                 <version>3.2.5</version>
                 <configuration>
                     <argLine>
+                        -Djava.awt.headless=true
                         --add-opens java.desktop/java.awt=ALL-UNNAMED
                         --add-opens java.desktop/javax.swing=ALL-UNNAMED
                     </argLine>
