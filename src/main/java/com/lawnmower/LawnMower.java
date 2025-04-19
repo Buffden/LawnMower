@@ -88,4 +88,9 @@ public class LawnMower {
             stop(); // Finished mowing
         }
     }
+
+    // Get mowing state
+    public boolean isMowing() {
+        return mowing;
+    }
 }
