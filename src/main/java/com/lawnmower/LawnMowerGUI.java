@@ -1,37 +1,39 @@
 package com.lawnmower;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
 
-public class LawnMowerGUI {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Lawn Mower Emulator");
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-            int rows = 10; // Define the number of rows
-            int cols = 10; // Define the number of columns
+public class LawnMowerGUI extends JFrame {
+    private LawnGrid lawnGrid;
 
-            LawnGrid lawnGrid = new LawnGrid(rows, cols); // Pass rows and cols to LawnGrid
-            LawnMower mower = new LawnMower(rows, cols);  // Pass rows and cols to LawnMower
-            MowerMediator mediator = new MowerMediator(lawnGrid, mower);
+    public LawnMowerGUI() {
+        setTitle("Lawn Mower Emulator");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 600);
 
-            JPanel controlPanel = new JPanel();
-            JButton startButton = new JButton("Start");
-            JButton stopButton = new JButton("Stop");
+        lawnGrid = new LawnGrid(10, 10);
+        LawnMower mower = new LawnMower(10, 10);
+        MowerMediator mediator = new MowerMediator(lawnGrid, mower);
 
-            startButton.addActionListener(e -> mediator.startMowing());
-            stopButton.addActionListener(e -> mediator.stopMowing());
+        JPanel controlPanel = new JPanel();
+        JButton startButton = new JButton("Start");
+        JButton stopButton = new JButton("Stop");
 
-            controlPanel.add(startButton);
-            controlPanel.add(stopButton);
+        startButton.addActionListener(e -> mediator.startMowing());
+        stopButton.addActionListener(e -> mediator.stopMowing());
 
-            frame.setLayout(new BorderLayout());
-            frame.add(lawnGrid, BorderLayout.CENTER);
-            frame.add(controlPanel, BorderLayout.SOUTH);
+        controlPanel.add(startButton);
+        controlPanel.add(stopButton);
 
-            frame.setSize(600, 600);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        });
+        setLayout(new BorderLayout());
+        add(lawnGrid, BorderLayout.CENTER);
+        add(controlPanel, BorderLayout.SOUTH);
+    }
+
+    public LawnGrid getLawnGrid() {
+        return lawnGrid;
     }
 }

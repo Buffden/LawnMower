@@ -26,13 +26,17 @@ public class LawnMower {
 
     // Add an observer
     public void addObserver(MowerObserver observer) {
-        observers.add(observer);
+        if (observer != null) {
+            observers.add(observer);
+        }
     }
 
     // Notify all observers
     private void notifyObservers(int row, int col) {
         for (MowerObserver observer : observers) {
-            observer.onCellMowed(row, col);
+            if (observer != null) {
+                observer.onCellMowed(row, col);
+            }
         }
     }
 
