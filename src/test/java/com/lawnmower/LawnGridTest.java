@@ -32,6 +32,12 @@ public class LawnGridTest {
     }
 
     @Test
+    public void testCreation() {
+        LawnGrid grid = new LawnGrid(5, 5);
+        assertNotNull(grid);
+    }
+
+    @Test
     @DisplayName("LawnGrid should handle cell updates")
     void testCellUpdates() {
         assertDoesNotThrow(() -> lawnGrid.updateCell(0, 0, Color.GREEN), 
