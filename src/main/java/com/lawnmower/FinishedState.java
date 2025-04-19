@@ -9,6 +9,6 @@ public class FinishedState implements MowerState {
 
     @Override
     public void execute() {
-        System.out.println("Mower is finished.");
+        System.out.println("Mowing completed!");
     }
 }

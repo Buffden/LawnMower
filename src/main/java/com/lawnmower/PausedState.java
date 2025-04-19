@@ -9,6 +9,6 @@ public class PausedState implements MowerState {
 
     @Override
     public void execute() {
-        System.out.println("Mower is paused. Press start to resume.");
+        System.out.println("Mower is paused. Press resume to continue.");
     }
 }
