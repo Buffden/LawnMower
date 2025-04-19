@@ -3,15 +3,15 @@ package com.lawnmower;
 import java.awt.Color;
 
 public class MowerMediator implements Mediator {
-    private LawnGrid lawnGrid;
-    private LawnMower lawnMower;
+    private final LawnGrid lawnGrid;
+    private final LawnMower lawnMower;
 
     public MowerMediator(LawnGrid lawnGrid, LawnMower lawnMower) {
         this.lawnGrid = lawnGrid;
         this.lawnMower = lawnMower;
 
         // Add LawnGrid as an observer
-        lawnMower.addObserver((row, col) -> updateLawn(row, col));
+        lawnMower.addObserver(this::updateLawn);
     }
 
     @Override
