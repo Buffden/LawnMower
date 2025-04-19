@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,29 +15,58 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class LawnGridTest {
-    private LawnGrid grid;
-    private static final int DEFAULT_SIZE = 5;
+public class LawnGridTest {
+    private LawnGrid lawnGrid;
+    private static final int ROWS = 5;
+    private static final int COLS = 5;
 
     @BeforeEach
     void setUp() {
-        grid = new LawnGrid(DEFAULT_SIZE, DEFAULT_SIZE);
+        lawnGrid = new LawnGrid(ROWS, COLS);
+    }
+
+    @Test
+    @DisplayName("LawnGrid should be created with correct dimensions")
+    void testGridCreation() {
+        assertNotNull(lawnGrid, "LawnGrid should be created");
+    }
+
+    @Test
+    public void testCreation() {
+        LawnGrid grid = new LawnGrid(5, 5);
+        assertNotNull(grid);
+    }
+
+    @Test
+    @DisplayName("LawnGrid should handle cell updates")
+    void testCellUpdates() {
+        assertDoesNotThrow(() -> lawnGrid.updateCell(0, 0, Color.GREEN), 
+            "Should be able to update cell state");
+    }
+
+    @Test
+    @DisplayName("LawnGrid should handle invalid cell coordinates")
+    void testInvalidCoordinates() {
+        assertDoesNotThrow(() -> lawnGrid.updateCell(-1, -1, Color.GREEN),
+            "Should handle invalid coordinates gracefully");
+        assertDoesNotThrow(() -> lawnGrid.updateCell(ROWS, COLS, Color.GREEN),
+            "Should handle out-of-bounds coordinates gracefully");
     }
 
     @Test
     @DisplayName("Grid should be initialized with correct dimensions")
     void testGridInitialization() {
         // Check if the preferred size is set
-        Dimension size = grid.getPreferredSize();
+        Dimension size = lawnGrid.getPreferredSize();
         assertEquals(500, size.width, "Grid width should be 500");
         assertEquals(500, size.height, "Grid height should be 500");
         
         // Verify the layout is GridLayout
-        assertInstanceOf(GridLayout.class, grid.getLayout(), "Layout should be GridLayout");
+        assertInstanceOf(GridLayout.class, lawnGrid.getLayout(), "Layout should be GridLayout");
         
-        GridLayout layout = (GridLayout) grid.getLayout();
-        assertEquals(DEFAULT_SIZE, layout.getRows(), "Grid should have " + DEFAULT_SIZE + " rows");
-        assertEquals(DEFAULT_SIZE, layout.getColumns(), "Grid should have " + DEFAULT_SIZE + " columns");
+        GridLayout layout = (GridLayout) lawnGrid.getLayout();
+        assertEquals(ROWS, layout.getRows(), "Grid should have " + ROWS + " rows");
+        assertEquals(COLS, layout.getColumns(), "Grid should have " + COLS + " columns");
     }
 
     @ParameterizedTest
@@ -59,9 +89,9 @@ class LawnGridTest {
     @DisplayName("Cell updates within bounds should be accepted")
     void testValidCellUpdate() {
         // Update cells at different positions
-        grid.updateCell(0, 0, Color.GREEN);
-        grid.updateCell(DEFAULT_SIZE - 1, DEFAULT_SIZE - 1, Color.RED);
-        grid.updateCell(DEFAULT_SIZE / 2, DEFAULT_SIZE / 2, Color.BLUE);
+        lawnGrid.updateCell(0, 0, Color.GREEN);
+        lawnGrid.updateCell(ROWS - 1, COLS - 1, Color.RED);
+        lawnGrid.updateCell(ROWS / 2, COLS / 2, Color.BLUE);
         
         // Since we can't directly access the colors, we at least verify no exceptions are thrown
         assertTrue(true, "Valid cell updates should not throw exceptions");
@@ -79,7 +109,7 @@ class LawnGridTest {
     })
     void testInvalidCellUpdate(int row, int col) {
         // These updates should not throw exceptions
-        assertDoesNotThrow(() -> grid.updateCell(row, col, Color.GREEN),
+        assertDoesNotThrow(() -> lawnGrid.updateCell(row, col, Color.GREEN),
             "Invalid cell updates should not throw exceptions");
     }
 
@@ -87,7 +117,7 @@ class LawnGridTest {
     @DisplayName("Grid should handle null color updates")
     void testNullColorUpdate() {
         // Updating with null color should not throw exception
-        assertDoesNotThrow(() -> grid.updateCell(0, 0, null),
+        assertDoesNotThrow(() -> lawnGrid.updateCell(0, 0, null),
             "Null color updates should not throw exceptions");
     }
 

@@ -9,7 +9,7 @@ public class IdleState implements MowerState {
 
     @Override
     public void execute() {
-        System.out.println("Mower is idle. Press Start to begin.");
+        System.out.println("Mower is idle. Press Start to begin mowing.");
     }
 }
 
